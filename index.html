@@ -9,7 +9,8 @@
             this.responsedata = await (await fetch('https://randomizer-service-mrtv0.cloud.okteto.net/device/platform')).json();
         }
     }">
-        Data returned: <strong x-text="responsedata">Placeholder</strong>
+        <button x-on:click="getData">Send get request</button>
+        Data returned: <strong x-text="responsedata[0].title">Placeholder</strong>
     </div>
 </body>
 </html>
