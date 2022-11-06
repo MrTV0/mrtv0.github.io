@@ -20,10 +20,9 @@
         Data returned: <strong x-text="activity.activity">Placeholder</strong>
         
         <h2>Do you need a break?</h2>        
-        <button x-on:click="getDat">Send get request</button>
+        <button x-on:click="getBreak">Send get request</button>
         <strong x-text="break.text">Placeholder</strong>
-        <img :src=break.picture width="400" 
-     height="auto"/>
+        <img :src="break.picture"/>
     </div>
 </body>
 </html>
