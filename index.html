@@ -10,13 +10,15 @@
             this.posts = await (await fetch('https://randomizer-service-mrtv0.cloud.okteto.net/percentage')).json();
                         },
                  prints: {},
-        async getData() {
-            this.posts = await (await fetch('https://randomizer-service-mrtv0.cloud.okteto.net/prin')).json();
+        async getDat() {
+            this.prints = await (await fetch('https://randomizer-service-mrtv0.cloud.okteto.net/prin')).json();
                         }
                  }">
         <button x-on:click="getData">Send get request</button>
-        Data returned: <strong x-text="posts.title">Placeholder</strong>||||||||<strong x-text="prints.tell">Placeholder</strong>
-        <img :src="posts.title"/>
+        Data returned: <strong x-text="posts.title">Placeholder</strong>
+        
+        <button x-on:click="getDat">Send get request</button>
+        Data returned: <strong x-text="prints.tell">Placeholder</strong>
     </div>
 </body>
 </html>
