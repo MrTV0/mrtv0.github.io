@@ -3,23 +3,15 @@
     <script defer src="https://unpkg.com/alpinejs@3.5.0/dist/cdn.min.js"></script>
 </head>
 
-<body>    
-    <div x-data="{
-        activity: {},
-        async getActivity() {
-            this.posts = await (await fetch('https://randomizer-service-mrtv0.cloud.okteto.net/activity')).json();
-                        },
-                 break: {},
-        async getBreak() {
-            this.prints = await (await fetch('https://randomizer-service-mrtv0.cloud.okteto.net/break')).json();
-                        }
-                 }">
-        
-        <h2>Do you feel bored?</h2>
-        <button x-on:click="getActivity">Send get request</button>
-        Data returned: <strong x-text="activity.activity">Placeholder</strong>
-        
-        <h2>Do you need a break?</h2>        
+<body>
+    <h2>Do you feel bored?</h2>
+    <div x-data="{activity: {}, async getActivity() {this.posts = await (await fetch('https://randomizer-service-mrtv0.cloud.okteto.net/activity')).json();}
+        <button x-on:click="getActivity">Get active again!</button>
+        <strong x-text="activity.activity">Placeholder</strong>
+    </div>
+
+    <h2>Do you need a break?</h2>
+    <div x-data="{break: {}, async getBreak() {this.posts = await (await fetch('https://randomizer-service-mrtv0.cloud.okteto.net/break')).json();}
         <button x-on:click="getBreak">Send get request</button>
         <strong x-text="break.text">Placeholder</strong>
         <img :src="break.picture"/>
