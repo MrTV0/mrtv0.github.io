@@ -5,13 +5,13 @@
 
 <body>
     <h2>Do you feel bored?</h2>
-    <div x-data="{activity: {}, async getActivity() {this.posts = await (await fetch('https://randomizer-service-mrtv0.cloud.okteto.net/activity')).json();}
+    <div x-data="{activity: {}, async getActivity() {this.posts = await (await fetch('https://randomizer-service-mrtv0.cloud.okteto.net/activity')).json();}>
         <button x-on:click="getActivity">Get active again!</button>
         <strong x-text="activity.activity">Placeholder</strong>
     </div>
 
     <h2>Do you need a break?</h2>
-    <div x-data="{break: {}, async getBreak() {this.posts = await (await fetch('https://randomizer-service-mrtv0.cloud.okteto.net/break')).json();}
+    <div x-data="{break: {}, async getBreak() {this.posts = await (await fetch('https://randomizer-service-mrtv0.cloud.okteto.net/break')).json();}>
         <button x-on:click="getBreak">Send get request</button>
         <strong x-text="break.text">Placeholder</strong>
         <img :src="break.picture"/>
