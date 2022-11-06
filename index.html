@@ -15,11 +15,13 @@
                         }
                  }">
         <h2>Do you feel bored?</h2>
-        <button x-on:click="getActiv">Send get request</button>
+        <button x-on:click="getActiv">Get active again!</button>
         Data returned: <strong x-text="activ.activity">Placeholder</strong>
         
-        <button x-on:click="getBreak">Send get request</button>
+        <h2>Do you need a break?</h2>
+        <button x-on:click="getBreak">This is for you!</button>
         Data returned: <strong x-text="breaking.text">Placeholder</strong>
+        <img :src="breaking.picture"/>
     </div>
 </body>
 </html>
