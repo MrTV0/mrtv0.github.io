@@ -3,22 +3,27 @@
     <script defer src="https://unpkg.com/alpinejs@3.5.0/dist/cdn.min.js"></script>
 </head>
 
-<body>
+<body>    
     <div x-data="{
-        posts: {},
-        async getData() {
-            this.posts = await (await fetch('https://randomizer-service-mrtv0.cloud.okteto.net/percentage')).json();
+        activity: {},
+        async getActivity() {
+            this.posts = await (await fetch('https://randomizer-service-mrtv0.cloud.okteto.net/activity')).json();
                         },
-                 prints: {},
-        async getDat() {
-            this.prints = await (await fetch('https://randomizer-service-mrtv0.cloud.okteto.net/prin')).json();
+                 break: {},
+        async getBreak() {
+            this.prints = await (await fetch('https://randomizer-service-mrtv0.cloud.okteto.net/break')).json();
                         }
                  }">
-        <button x-on:click="getData">Send get request</button>
-        Data returned: <strong x-text="posts.title">Placeholder</strong>
         
+        <h2>Do you feel bored?</h2>
+        <button x-on:click="getActivity">Send get request</button>
+        Data returned: <strong x-text="activity.activity">Placeholder</strong>
+        
+        <h2>Do you need a break?</h2>        
         <button x-on:click="getDat">Send get request</button>
-        Data returned: <strong x-text="prints.tell">Placeholder</strong>
+        <strong x-text="break.text">Placeholder</strong>
+        <img :src=break.picture width="400" 
+     height="auto"/>
     </div>
 </body>
 </html>
