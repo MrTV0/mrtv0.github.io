@@ -10,6 +10,10 @@
         async getActiv() {
             this.activ = await (await fetch('https://free-time-mrtv0.cloud.okteto.net/activity')).json();
                         },
+                 choosing: {},
+        async getChoise() {
+            this.choosing = await (await fetch('https://free-time-mrtv0.cloud.okteto.net/choise')).json();
+                        },
                  breaking: {},
         async getBreak() {
             this.breaking = await (await fetch('https://free-time-mrtv0.cloud.okteto.net/break')).json();
@@ -18,6 +22,10 @@
         <h2>Do you feel bored?</h2>
         <button x-on:click="getActiv">Get active again!</button>
         Data returned: <strong x-text="activ.activity">Placeholder</strong>
+        
+        <h3>Are you sure?</h3>
+        <button x-on:click="getChoise">Let me choose!</button>
+        Data returned: <strong x-text="choosing.text">Placeholder</strong>
         
         <h2>Do you need a break?</h2>
         <button x-on:click="getBreak">This is for you!</button>
