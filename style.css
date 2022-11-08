@@ -4,4 +4,6 @@ img {
 
 img[src*="/"] {
     display: block;
+    width: 300px;
+    height: auto;
 }
