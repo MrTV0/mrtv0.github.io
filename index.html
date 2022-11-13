@@ -1,6 +1,7 @@
 <html>
 <head>
     <script defer src="https://unpkg.com/alpinejs@3.5.0/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>    
@@ -9,7 +10,7 @@
         activity_select: null,
         participants_count: 0,
         async getActiv() {
-            this.activ = await (await fetch('http://127.0.0.1:8000/activity', 
+            this.activ = await (await fetch('https://free-time-mrtv0.cloud.okteto.net/activity', 
                         {
                             method: 'POST',
                             body: JSON.stringify({
@@ -25,11 +26,11 @@
                         },
                  choosing: {},
         async getChoice() {
-            this.choosing = await (await fetch('http://127.0.0.1:8000/choice')).json();
+            this.choosing = await (await fetch('https://free-time-mrtv0.cloud.okteto.net/choice')).json();
                         },
                  breaking: {},
         async getBreak() {
-            this.breaking = await (await fetch('http://127.0.0.1:8000/break')).json();
+            this.breaking = await (await fetch('https://free-time-mrtv0.cloud.okteto.net/break')).json();
                         }
                  }">
         <h2>Do you feel bored?</h2>
