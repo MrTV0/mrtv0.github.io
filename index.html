@@ -1,30 +1,70 @@
 <html>
 <head>
     <script defer src="https://unpkg.com/alpinejs@3.5.0/dist/cdn.min.js"></script>
-    <link rel="stylesheet" href="style.css">
+<style>
+img {
+display: none;
+}
+
+img[src*="/"] {
+display: block;
+width: 300px;
+height: auto;
+}
+
+input {
+    max-width: 25px;
+}
+</style>
 </head>
 
 <body>    
     <div x-data="{
         activ: {},
+        activity_select: null,
+        participants_count: 0,
         async getActiv() {
-            this.activ = await (await fetch('https://free-time-mrtv0.cloud.okteto.net/activity')).json();
+            this.activ = await (await fetch('http://127.0.0.1:8000/activity', 
+                        {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                activity_sel: this.activity_select,
+                                participants_amount: this.participants_count
+                        }),
+                headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+                            },
+                        })).json();
+                
+                            console.log(this.activ);
                         },
                  choosing: {},
-        async getChoise() {
-            this.choosing = await (await fetch('https://free-time-mrtv0.cloud.okteto.net/choise')).json();
+        async getChoice() {
+            this.choosing = await (await fetch('http://127.0.0.1:8000/choice')).json();
                         },
                  breaking: {},
         async getBreak() {
-            this.breaking = await (await fetch('https://free-time-mrtv0.cloud.okteto.net/break')).json();
+            this.breaking = await (await fetch('http://127.0.0.1:8000/break')).json();
                         }
                  }">
         <h2>Do you feel bored?</h2>
+        <div>
+        <p>Press the "Get Active Again!" button to show an activity you can do.</p>
+        <p>You can choose which specific type of activity you want to see an activity of.</p>
+        <p>Choose "Random" if you want a totally random type of activity.</p>
+        <select x-model="activity_select">
+            <option value="">Random</option>
+            <option>education</option>
+            <option>recreational</option>
+            <option>social</option>
+        </select>
+        <input type="text" x-model="participants_count">
+        </div>
         <button x-on:click="getActiv">Get active again!</button>
-        Data returned: <strong x-text="activ.activity">Placeholder</strong>
-        
-        <h3>Are you sure?</h3>
-        <button x-on:click="getChoise">Let me choose!</button>
+        <p>In type <strong x-text="activ.type"></strong> with <strong x-text="activ.part_amount"></strong> the activity will be: <strong x-text="activ.activity">Placeholder</strong></p>
+
+        <h3>If you are not sure you can let me choose.</h3>
+        <button x-on:click="getChoice">Let me choose!</button>
         Data returned: <strong x-text="choosing.text">Placeholder</strong>
         
         <h2>Do you need a break?</h2>
