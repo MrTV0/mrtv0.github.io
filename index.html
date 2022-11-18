@@ -1,7 +1,17 @@
 <html>
 <head>
     <script defer src="https://unpkg.com/alpinejs@3.5.0/dist/cdn.min.js"></script>
-    <link rel="stylesheet" href="style.css">
+<style>
+img {
+display: none;
+}
+
+img[src*="/"] {
+display: block;
+width: 300px;
+height: auto;
+}
+</style>
 </head>
 
 <body>    
@@ -10,7 +20,7 @@
         activity_select: null,
         participants_count: 0,
         async getActiv() {
-            this.activ = await (await fetch('https://free-time-mrtv0.cloud.okteto.net/activity', 
+            this.activ = await (await fetch('http://127.0.0.1:8000/activity', 
                         {
                             method: 'POST',
                             body: JSON.stringify({
@@ -26,11 +36,18 @@
                         },
                  choosing: {},
         async getChoice() {
-            this.choosing = await (await fetch('https://free-time-mrtv0.cloud.okteto.net/choice')).json();
+            this.choosing = await (await fetch('http://127.0.0.1:8000/choice')).json();
                         },
                  breaking: {},
         async getBreak() {
-            this.breaking = await (await fetch('https://free-time-mrtv0.cloud.okteto.net/break')).json();
+            this.breaking = await (await fetch('http://127.0.0.1:8000/break')).json();
+                        },
+                 items: {},
+                 amount: '',
+                 max_amount: 5,
+        async getYesnos() {
+            this.items = await (await fetch('http://127.0.0.1:8000/yesnos/' + this.amount + '?max_amount=' + this.max_amount)).json();
+            console.log(this.items);
                         }
                  }">
         <h2>Do you feel bored?</h2>
@@ -43,6 +60,12 @@
             <option>education</option>
             <option>recreational</option>
             <option>social</option>
+            <option>diy</option>
+            <option>charity</option>
+            <option>cooking</option>
+            <option>relaxation</option>
+            <option>music</option>
+            <option>busywork</option>
         </select>
         <input type="text" x-model="participants_count">
         </div>
@@ -52,7 +75,15 @@
         <h3>If you are not sure you can let me choose.</h3>
         <button x-on:click="getChoice">Let me choose!</button>
         Data returned: <strong x-text="choosing.text">Placeholder</strong>
+
+        <p>If you are not sure you can let me choose.</p>
+        <input type="text" x-model="amount">
+        <input type="text" x-model="max_amount">
         
+        <button x-on:click="getYesnos" x-show="amount.length >= 1">Let me choose!</button>
+        Data returned: <strong x-text="items.fullString">Placeholder</strong>
+        Data returned: <strong x-text="items.winner">Placeholder</strong>
+    
         <h2>Do you need a break?</h2>
         <button x-on:click="getBreak">This is for you!</button>
         Data returned: <strong x-text="breaking.text">Placeholder</strong>
