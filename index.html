@@ -10,7 +10,7 @@
         activity_select: null,
         participants_count: 0,
         async getActiv() {
-            this.activ = await (await fetch('https://free-time-mrtv0.cloud.okteto.net/activity', 
+            this.activ = await (await fetch('http://127.0.0.1:8000/activity', 
                         {
                             method: 'POST',
                             body: JSON.stringify({
@@ -26,58 +26,92 @@
                         },
                  choosing: {},
         async getChoice() {
-            this.choosing = await (await fetch('https://free-time-mrtv0.cloud.okteto.net/choice')).json();
+            this.choosing = await (await fetch('http://127.0.0.1:8000/choice')).json();
                         },
                  breaking: {},
         async getBreak() {
-            this.breaking = await (await fetch('https://free-time-mrtv0.cloud.okteto.net/break')).json();
+            this.breaking = await (await fetch('http://127.0.0.1:8000/break')).json();
                         },
                  items: {},
                  amount: '',
                  max_amount: 5,
         async getYesnos() {
-            this.items = await (await fetch('https://free-time-mrtv0.cloud.okteto.net/yesnos/' + this.amount + '?max_amount=' + this.max_amount)).json();
+            this.items = await (await fetch('http://127.0.0.1:8000/yesnos/' + this.amount + '?max_amount=' + this.max_amount)).json();
             console.log(this.items);
                         }
                  }">
-        <h2>Do you feel bored?</h2>
-        <div>
+        <div class="shadow p-3 pb-1 mt-3 mb-5 bg-body rounded">
+        <h2 class="mb-2">Do you feel bored?</h2>
+        <hr class="dl">
+        <div class="mt-3">
         <p>Press the "Get Active Again!" button to show an activity you can do.</p>
         <p>You can choose which specific type of activity you want to see an activity of.</p>
         <p>Choose "Random" if you want a totally random type of activity.</p>
-        <select x-model="activity_select">
-            <option value="">Random</option>
-            <option>education</option>
-            <option>recreational</option>
-            <option>social</option>
-            <option>diy</option>
-            <option>charity</option>
-            <option>cooking</option>
-            <option>relaxation</option>
-            <option>music</option>
-            <option>busywork</option>
-        </select>
-        <input type="text" x-model="participants_count">
+            <div class="mt-4 mb-2">
+                Type:
+            <select x-model="activity_select">
+                <option value="">Random</option>
+                <option>education</option>
+                <option>recreational</option>
+                <option>social</option>
+                <option>diy</option>
+                <option>charity</option>
+                <option>cooking</option>
+                <option>relaxation</option>
+                <option>music</option>
+                <option>busywork</option>
+            </select>
+            </div>
+            <div class="mb-2">
+                Amount of persons:
+            <input type="text" x-model="participants_count">
+            </div>
         </div>
-        <button x-on:click="getActiv">Get active again!</button>
-        <p>In type <strong x-text="activ.type"></strong> with <strong x-text="activ.part_amount"></strong> the activity will be: <strong x-text="activ.activity">Placeholder</strong></p>
-
-        <h3>If you are not sure you can let me choose.</h3>
-        <button x-on:click="getChoice">Let me choose!</button>
-        Data returned: <strong x-text="choosing.text">Placeholder</strong>
-
-        <p>If you are not sure you can let me choose.</p>
-        <input type="text" x-model="amount">
-        <input type="text" x-model="max_amount">
+        <button class="button5" x-on:click="getActiv">Get active again!</button>
+        <p class="mt-3"><span x-show="activ.part_amount >= 1">In type <strong x-text="activ.type"></strong> with <strong x-text="activ.part_amount"></strong> person<span x-show="activ.part_amount > 1">s</span> the activity will be: </span><strong x-text="activ.activity">Placeholder</strong></p>
+        </div>
+        <div class="shadow p-3 mb-5 bg-body rounded">
+        <h2 class="mb-2">Are you doubtful?</h2>
+        <hr class="dl">
+        <p class="mt-3">If you are not sure you want to do that activity you can let me choose.</p>
+        <button class="button5" x-on:click="getChoice">Let me choose!</button>
+        <div class="mt-3 mb-4">Your decision:         
+            <strong x-text="choosing.text">Placeholder</strong>
+        </div>
+        <hr>
+        <p>If one choice isn't enough, more choices are possible to have a final decision be made.</p>
+        <p>First enter the amount of choices that have to be made.</p>
+        <p>Change the limit of choices if needed.</p>
+        <p>(The default is 5. Higher than 10 isn't recommended since this will increase waiting time.)</p>
+        <div>Amount:         
+            <input type="text" x-model="amount">
+        </div>
+        <div class="mt-2 mb-1">Limit:         
+            <input type="text" x-model="max_amount">
+        </div>
+        <div x-show="max_amount != 0">        
+            <button class="button5 mt-2" x-on:click="getYesnos" x-show="amount != 0">Let me choose!</button>
+        </div>
+        <div class="mt-3" x-show="items.error">
+            <strong x-text="items.error">Placeholder</strong>
+        </div>
+        <div class="mt-3" x-show="items.fullString">
+        Results: <strong x-text="items.fullString">Placeholder</strong>
+        </div>
+        <div x-show="items.winner">
+        The final decision: <strong x-text="items.winner">Placeholder</strong>
+        </div>
+        </div>
+        <div class="shadow p-3 mb-5 bg-body rounded">
+            <h2 class="mb-2">Do you need a break?</h2>
+            <hr class="dl">
         
-        <button x-on:click="getYesnos" x-show="amount.length >= 1">Let me choose!</button>
-        Data returned: <strong x-text="items.fullString">Placeholder</strong>
-        Data returned: <strong x-text="items.winner">Placeholder</strong>
-    
-        <h2>Do you need a break?</h2>
-        <button x-on:click="getBreak">This is for you!</button>
-        Data returned: <strong x-text="breaking.text">Placeholder</strong>
-        <img :src="breaking.picture"/>
+            <button class="button5 mt-3" x-on:click="getBreak" x-show="!breaking.text">This is for you!</button>
+            <div class="mt-2 mb-2">
+                <strong x-text="breaking.text">Placeholder</strong>
+            </div>
+            <img :src="breaking.picture"/>
+        </div>
     </div>
 </body>
 </html>
