@@ -11,7 +11,7 @@
         activity_select: null,
         participants_count: 0,
         async getActiv() {
-            this.activ = await (await fetch('http://127.0.0.1:8000/activity', 
+            this.activ = await (await fetch('https://free-time-mrtv0.cloud.okteto.net/activity', 
                         {
                             method: 'POST',
                             body: JSON.stringify({
@@ -27,17 +27,17 @@
                         },
                  choosing: {},
         async getChoice() {
-            this.choosing = await (await fetch('http://127.0.0.1:8000/choice')).json();
+            this.choosing = await (await fetch('https://free-time-mrtv0.cloud.okteto.net/choice')).json();
                         },
                  breaking: {},
         async getBreak() {
-            this.breaking = await (await fetch('http://127.0.0.1:8000/break')).json();
+            this.breaking = await (await fetch('https://free-time-mrtv0.cloud.okteto.net/break')).json();
                         },
                  items: {},
                  amount: '',
                  max_amount: 5,
         async getYesnos() {
-            this.items = await (await fetch('http://127.0.0.1:8000/yesnos/' + this.amount + '?max_amount=' + this.max_amount)).json();
+            this.items = await (await fetch('https://free-time-mrtv0.cloud.okteto.net/yesnos/' + this.amount + '?max_amount=' + this.max_amount)).json();
             console.log(this.items);
                         }
                  }">
